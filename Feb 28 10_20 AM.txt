@@ -1,0 +1,431 @@
+//SpeedRecorder
+
+
+
+
+package aASD;
+
+public class Vehicle {
+	private String vehicleNumber;
+	private String vehicleOwnerName;
+	private String vehicleType;
+	private int vehicleSpeed;
+	private double vehicleValue;
+	
+	public String getVehicleNumber() {
+		return vehicleNumber;
+	}
+	public void setVehicleNumber(String vehicleNumber) {
+		this.vehicleNumber = vehicleNumber;
+	}
+	
+	public String getVehicleOwnerName() {
+		return vehicleOwnerName;
+	}
+	public void setVehicleOwnerName(String vehicleOwnerName) {
+		this.vehicleOwnerName = vehicleOwnerName;
+	}
+	
+	public String getVehicleType() {
+		return vehicleType;
+	}
+	public void setVehicleType(String vehicleType) {
+		this.vehicleType = vehicleType;
+	}
+	
+	public int getVehicleSpeed() {
+		return vehicleSpeed;
+	}
+	public void setVehicleSpeed(int vehicleSpeed) {
+		this.vehicleSpeed = vehicleSpeed;
+	}
+	
+	public double getVehicleValue() {
+		return vehicleValue;
+	}
+	public void setVehicleValue(double vehicleValue) {
+		this.vehicleValue = vehicleValue;
+	}
+	
+	public Vehicle(String vehicleNumber, String vehicleOwnerName, String vehicleType, int vehicleSpeed,
+			double vehicleValue) {
+		super();
+		this.vehicleNumber = vehicleNumber;
+		this.vehicleOwnerName = vehicleOwnerName;
+		this.vehicleType = vehicleType;
+		this.vehicleSpeed = vehicleSpeed;
+		this.vehicleValue = vehicleValue;
+	}
+	
+	public Vehicle() {
+		// TODO Auto-generated constructor stub
+	}
+	public double calculateTotalFareAmount() {
+		double totalFare = 0;
+		double fineAmount;
+		if (vehicleSpeed <= 100 && (vehicleType.equalsIgnoreCase("twowheeler")|| vehicleType.equalsIgnoreCase("fourwheeler"))) {
+			if (vehicleType.equalsIgnoreCase("twowheeler")) {
+				if (vehicleSpeed >= 31 && vehicleSpeed <= 40) {
+					fineAmount = (vehicleValue * 5) / 100;
+				} else if (vehicleSpeed >= 41 && vehicleSpeed <= 50) {
+					fineAmount = (vehicleValue * 15) / 100;
+				} else {
+					fineAmount = (vehicleValue * 25) / 100;
+				}
+				totalFare = fineAmount + 700;
+			} else if (vehicleType.equalsIgnoreCase("fourwheeler")) {
+				if (vehicleSpeed >= 31 && vehicleSpeed <= 40) {
+					fineAmount = (vehicleValue * 5) / 100;
+				} else if (vehicleSpeed >= 41 && vehicleSpeed <= 50) {
+					fineAmount = (vehicleValue * 15) / 100;
+				} else {
+					fineAmount = (vehicleValue * 25) / 100;
+				}
+				totalFare += fineAmount + 1200;
+			}
+		} else {
+			return 0;
+		}
+		return totalFare;
+		
+	}
+}
+
+
+
+
+package aASD;
+import java.util.*;
+
+public class UserInterface {
+
+	public static Vehicle extractDetails(String vehicleDetails) {
+		Vehicle v = new Vehicle ();
+		String[] str = vehicleDetails.split(":");
+		String name = str[0];
+		String owner = str[1];
+		String type = str[2];
+		int speed  =Integer.parseInt(str[3]);
+		double price = Double.parseDouble(str[4]);
+		
+		v.setVehicleNumber(name);
+		v.setVehicleOwnerName(owner);
+		v.setVehicleType(type);
+		v.setVehicleSpeed(speed);
+		v.setVehicleValue(price);
+		
+		return v;
+	}
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter vehicle Details");
+		String s = sc.nextLine();
+		Vehicle v = extractDetails(s);
+		double totalFare = v.calculateTotalFareAmount();
+		if (totalFare == 0) {
+			System.out.println("Invalid vehicle details");
+		} else {
+			System.out.println("Vehicle Details");
+			System.out.println("Vehicle Number: " + v.getVehicleNumber());
+			System.out.println("Vehicle Owner Name: " + v.getVehicleOwnerName());
+			System.out.println("Vehicle Type: " + v.getVehicleType());
+			System.out.println("Vehicle Speed: " + v.getVehicleSpeed());
+			System.out.println("Vehicle Value: " + v.getVehicleValue());
+			System.out.println("Total Fine Amount: " + totalFare);
+		}
+	}
+-----------------------------------------
+AIR JIO
+-----------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+
+class BroadbandRecharge 
+{
+    private String customerName;
+    private String mobileNumber;
+    private double planCharge;
+    private String paymentMode;
+
+    public BroadbandRecharge(String customerName, String mobileNumber, double planCharge, String paymentMode) 
+    {
+        this.customerName = customerName;
+        this.mobileNumber = mobileNumber;
+        this.planCharge = planCharge;
+        this.paymentMode = paymentMode;
+    }
+
+    // Getters and Setters
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public double getPlanCharge() {
+        return planCharge;
+    }
+
+    public void setPlanCharge(double planCharge) {
+        this.planCharge = planCharge;
+    }
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
+    // Method to calculate bill amount
+    public double calculateBillAmount() {
+        double serviceChargePercentage = 0;
+        switch (paymentMode.toLowerCase()) {
+            case "upi":
+                serviceChargePercentage = 5;
+                break;
+            case "card":
+                serviceChargePercentage = 3;
+                break;
+            case "netbanking":
+                serviceChargePercentage = 2;
+                break;
+            case "ajwallet":
+                serviceChargePercentage = 0;
+                break;
+            default:
+                return 0;
+        }
+        if (planCharge <= 0) {
+            return 0;
+        }
+        return planCharge + (planCharge * serviceChargePercentage) / 100;
+    }
+}
+
+
+
+import java.util.Scanner;
+
+public class UserInterface {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the details");
+        String rechargeDetails = scanner.nextLine();
+        BroadbandRecharge broadbandRecharge = extractDetails(rechargeDetails);
+       int x=(int) broadbandRecharge.calculateBillAmount();
+        if (x==0) {
+            System.out.println("Invalid broadband recharge details");
+        } else {
+            System.out.println("Invoice");
+            System.out.println("Customer Name: " + broadbandRecharge.getCustomerName());
+            System.out.println("Mobile Number: " + broadbandRecharge.getMobileNumber());
+            System.out.println("Plan: " + broadbandRecharge.getPlanCharge());
+            System.out.println("Payment Mode: " + broadbandRecharge.getPaymentMode());
+            System.out.println("Bill Amount: " + broadbandRecharge.calculateBillAmount());
+        }
+        scanner.close();
+    }
+
+    public static BroadbandRecharge extractDetails(String rechargeDetails) {
+        String[] details = rechargeDetails.split(":");
+        if (details.length != 4) {
+            return null;
+        }
+        String customerName = details[0];
+        String mobileNumber = details[1];
+        double planCharge;
+        try {
+            planCharge = Double.parseDouble(details[2]);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        String paymentMode = details[3];
+        return new BroadbandRecharge(customerName, mobileNumber, planCharge, paymentMode);
+    }
+}
+-------------------------------------
+FARM FRESH
+--------------------------------------------------------------------------------------------
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+class VegetableMain {
+    private Map<String, String> vegetableMap;
+
+    public VegetableMain() {
+        vegetableMap = new HashMap<>();
+    }
+
+    // Getter and Setter for vegetableMap
+    public Map<String, String> getVegetableMap() {
+        return vegetableMap;
+    }
+
+    public void setVegetableMap(Map<String, String> vegetableMap) {
+        this.vegetableMap = vegetableMap;
+    }
+
+    // Method to find the count of vegetables based on vegetable type
+    public int findTheCountOfVegetablesBasedOnTheVegetableType(String vegetableType) {
+        int count = 0;
+        for (String type : vegetableMap.values()) {
+            if (type.equalsIgnoreCase(vegetableType)) {
+                count++;
+            }
+        }
+        return count == 0 ? -1 : count;
+    }
+
+    // Method to filter vegetables based on vegetable type
+    public List<String> findVegetablesBasedOnTheVegetableType(String vegetableType) {
+        List<String> vegetables = new ArrayList<>();
+        for (Map.Entry<String, String> entry : vegetableMap.entrySet()) {
+            if (entry.getValue().equalsIgnoreCase(vegetableType)) {
+                vegetables.add(entry.getKey());
+            }
+        }
+        return vegetables;
+    }
+
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        VegetableMain vegetableMain = new VegetableMain();
+
+        System.out.println("Enter number of records to be added");
+        int n = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+        System.out.println("Enter the records (Vegetable Name: Vegetable Type)");
+        for (int i = 0; i < n; i++) {
+            String[] record = scanner.nextLine().split(":");
+            vegetableMain.getVegetableMap().put(record[0], record[1]);
+        }
+
+        System.out.println("Enter the Vegetable type to be searched");
+        String vegetableType = scanner.nextLine();
+
+        int count = vegetableMain.findTheCountOfVegetablesBasedOnTheVegetableType(vegetableType);
+        if (count == -1) {
+            System.out.println("No vegetables were found for " + vegetableType);
+        } else {
+            System.out.println("The count of vegetables based on the type " + vegetableType + " are " + count);
+        }
+
+        System.out.println("Enter the vegetable type to get the list of vegetables");
+        vegetableType = scanner.nextLine();
+        List<String> vegetables = vegetableMain.findVegetablesBasedOnTheVegetableType(vegetableType);
+        if (vegetables.isEmpty()) {
+            System.out.println("No vegetables were found for the " + vegetableType);
+        } else {
+            System.out.println("Vegetables based on the " + vegetableType + " are");
+            for (String vegetable : vegetables) {
+                System.out.println(vegetable);
+            }
+        }
+        scanner.close();
+    }
+}
+===================================================================================================================================================
+DISCOUNT RATE
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+ 
+class UserMainCode {
+    public static ArrayList<String> calculateDiscount(HashMap<String, String> dorMap, HashMap<String, Integer> amountMap) {
+        ArrayList<String> result = new ArrayList<>();
+ 
+        for (Map.Entry<String, String> entry : dorMap.entrySet()) {
+            String id = entry.getKey();
+            String dorString = entry.getValue();
+            int amount = amountMap.get(id);
+ 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date dorDate;
+            try {
+                dorDate = dateFormat.parse(dorString);
+ 
+                Calendar currentDate = Calendar.getInstance();
+                Calendar dorCalendar = Calendar.getInstance();
+                dorCalendar.setTime(dorDate);
+ 
+                int registrationYears = currentDate.get(Calendar.YEAR) - dorCalendar.get(Calendar.YEAR);
+ 
+                double discountRate;
+ 
+                if (amount >= 20000) {
+                    if (registrationYears >= 5) {
+                        discountRate = 0.2;
+                    } else {
+                        discountRate = 0.1;
+                    }
+                } else {
+                    if (registrationYears >= 5) {
+                        discountRate = 0.15;
+                    } else {
+                        discountRate = 0.05;
+                    }
+                }
+ 
+                double discountAmount = amount * discountRate;
+                result.add(id + ":" + (int) discountAmount);
+ 
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+ 
+        return result;
+    }
+}
+ 
+public class Main {
+    public static void main(String[] args) {
+Scanner scanner = new Scanner(System.in);
+ 
+        System.out.println("Enter the number of employees:");
+        int n = scanner.nextInt();
+ 
+        HashMap<String, String> dorMap = new HashMap<>();
+        HashMap<String, Integer> amountMap = new HashMap<>();
+ 
+        System.out.println("Enter employee details (id, DOR, transaction amount):");
+        for (int i = 0; i < n; i++) {
+            String id = scanner.next();
+            String dor = scanner.next();
+            int amount = scanner.nextInt();
+ 
+            dorMap.put(id, dor);
+            amountMap.put(id, amount);
+        }
+ 
+        ArrayList<String> result = UserMainCode.calculateDiscount(dorMap, amountMap);
+ 
+        System.out.println("Discount details:");
+        for (String line : result) {
+            System.out.println(line);
+        }
+    }
+}
+
+
+
+}
